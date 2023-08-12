@@ -16,6 +16,7 @@
 
 1. https://www.majorgeeks.com/mg/sortdate/windows_7_8.html
 2. https://windows10debloater.com/
+3. https://forum.ru-board.com/topic.cgi?forum=5&bm=1&topic=48142
 
 Конкретные программы:
 
