@@ -6,7 +6,7 @@ In this repository, I will post settings files or a text description of how to r
 
 ## Repository structure
 
-- OSes
+- [OSes](./OSes/README.md)
 
 ## Language
 
