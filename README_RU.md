@@ -7,6 +7,8 @@
 ## Структура репозитория
 
 - [ОС](./OSes/README.md)
+  - [Windows](./OSes/Windows/README.md)
+  - [macOS](./OSes/macOS/README.md)
 
 ## Язык
 

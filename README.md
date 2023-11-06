@@ -7,6 +7,8 @@ In this repository, I will post settings files or a text description of how to r
 ## Repository structure
 
 - [OSes](./OSes/README.md)
+  - [Windows](./OSes/Windows/README.md)
+  - [macOS](./OSes/macOS/README.md)
 
 ## Language
 
