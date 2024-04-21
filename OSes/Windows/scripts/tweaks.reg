@@ -340,12 +340,25 @@
 ; Включить гибернацию
 ; https://lumpics.ru/how-to-enable-hibernate-in-windows-11/
 ;
+; На ПК лучше отключить Гибернацию, чтобы файл hiberfil.sys не съедал полезное место на диске
+; В cmd от имени администратора:
+; powercfg -h off
+; https://dzen.ru/a/XA-RjvB0dgCuFRss
+;
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power]
 "HibernateEnabled"=dword:00000001
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer]
 "ShowHibernateOption"=dword:00000001
+
+;
+; Отключить быстрый запуск
+;
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power]
+"HiberbootEnabled "=dword:0000000
+
 
 ;
 ; Отключить Cortana и все дочерние процессы
