@@ -36,7 +36,7 @@ function restart_finder() {
 function does_it_have_battery() {
     if pmset -g batt 2>/dev/null | grep -q "InternalBattery"; then
         return 0
-    if pmset -g batt 2>/dev/null | grep -E "Battery|AC"; then
+    elif pmset -g batt 2>/dev/null | grep -E "Battery|AC"; then
         return 0
     elif ioreg -r -k AppleLowBattery | grep -q "AppleLowBattery"; then
         return 0
@@ -257,12 +257,40 @@ function dock_setup_view() {
 
     # 3. Добавление ваших приложений
     echo "Adding apps to Dock"
-    add_to_dock "/System/Applications/Launchpad.app"
-    add_to_dock "/System/Applications/System Settings.app" # Для macOS Ventura и новее
-    add_to_dock "/Applications/System Preferences.app"    # Для El Capitan и старых систем
-    add_to_dock "/Applications/Safari.app"
-    add_to_dock "/System/Applications/Utilities/Terminal.app" # Путь в новых ОС
-    add_to_dock "/Applications/Utilities/Terminal.app"        # Путь в старых ОС
+    
+    # Launchpad
+    if [ -d "/System/Applications/Launchpad.app" ]; then
+        # начиная с macOS 26 - Launchpad вырезали из системы
+        add_to_dock "/System/Applications/Launchpad.app"
+    fi
+
+    # Safari
+    if [[ $(echo "$macos_version 11" | awk '{print ($1 > $2)}') -eq 1 ]]; then
+        # echo "Версия macOS больше или равна 11"
+        add_to_dock "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/"
+        # если в современных системах в Dock добавлять путь "/Applications/Safari.app",
+        # то будет добавляться ярлык на программу, а не она сама
+        # "раздел" Preboot появился в macOS 11
+    else
+        add_to_dock "/Applications/Safari.app"
+    fi
+
+    # System Settings
+    if [ -d "/System/Applications/System Settings.app" ]; then
+        # Для macOS 13 Ventura и новее
+        add_to_dock "/System/Applications/System Settings.app" # Для macOS Ventura и новее
+    else
+        # Для macOS 12 Monterey и старше
+        add_to_dock "/Applications/System Preferences.app"    # Для macOS 12 и старых систем
+    fi
+
+    # Terminal
+    if [ -d "/System/Applications/Utilities/Terminal.app" ]; then
+        add_to_dock "/System/Applications/Utilities/Terminal.app" # Путь в новых ОС
+    else
+        add_to_dock "/Applications/Utilities/Terminal.app"        # Путь в старых ОС
+    fi
+    
 
     # 4. Перезапуск Dock для применения изменений
     killall Dock
