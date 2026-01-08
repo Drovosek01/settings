@@ -1,5 +1,11 @@
 ## Настройка оболочек
 
+- [Настройка оболочек](#настройка-оболочек)
+  - [Обязательные действия](#обязательные-действия)
+  - [Статьи по zsh](#статьи-по-zsh)
+  - [Что сделать для настройки zsh](#что-сделать-для-настройки-zsh)
+
+
 `bash` в macOS не обновлялся с 2007 года, а с ~2019 года (или когда вышла macOS 10.15) `zsh` стала стандартной оболочкой в терминале.
 
 Поэтому настраивать `bash` мало смысла, лучше переходить на `zsh`.
@@ -31,4 +37,34 @@ brew install zsh-autosuggestions
 brew install zsh-syntax-highlighting
 ```
 
-По пути `~/.zshrc` создать этот файл, если его там нет и добавить текст из файла `.zshrc` из этого репозитория
+По пути `~/.zshrc` создать этот файл с содержимым ниже, если его там нет, добавить текст
+
+```bash
+zstyle ':completion:*' menu select
+
+source \$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+autoload -Uz compinit promptinit
+compinit
+promptinit
+
+#
+# SETOPT
+#
+
+# do not store duplications
+setopt HIST_IGNORE_DUPS
+# removes blank lines from history
+setopt HIST_REDUCE_BLANKS
+
+setopt CORRECT
+setopt CORRECT_ALL
+
+#
+# ALIASES
+#
+
+alias ll='ls -al'
+alias cds='codesign --force --deep --sign -'
+```
