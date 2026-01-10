@@ -179,6 +179,12 @@ function finder_setup_base() {
     defaults write com.apple.finder ShowPathbar -bool true
     defaults write com.apple.finder ShowStatusBar -bool true
 
+
+    # --- 5. Горячие клавиши (ShortCuts) ---
+    # открытие bundle-директорий (приложений, плагинов и т.д.) с помощью ⌥+⌘+(стрелка вниз)
+    # https://apple.stackexchange.com/a/44299
+    defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Show Package Contents" "@~\\U2193"
+    
     restart_finder
 }
 
